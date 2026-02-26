@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Love Sticker</title>
+
+<style>
+body{
+  margin:0;
+  background:linear-gradient(135deg,#1e1e2f,#3a3a6a);
+  color:white;
+  font-family:Arial;
+  text-align:center;
+  overflow:hidden;
+}
+
+.container{
+  margin-top:120px;
+}
+
+h2{
+  font-size:30px;
+}
+
+button{
+  padding:12px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  margin:10px;
+  transition:0.3s;
+}
+
+.yes{
+  background:#00c853;
+  color:white;
+}
+
+.no{
+  background:#d50000;
+  color:white;
+  position:absolute;
+}
+
+.result{
+  display:none;
+  font-size:28px;
+  color:#00e676;
+  margin-top:120px;
+}
+
+/* Heart animation */
+.heart, .sticker{
+  position:fixed;
+  animation:fall 6s linear forwards;
+}
+
+@keyframes fall{
+  0%{ top:-10%; opacity:1; }
+  100%{ top:110%; opacity:0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Do you love me? ❤️</h2>
+  <button class="yes" onclick="showLove()">Yes</button>
+  <button class="no" id="noBtn">No</button>
+</div>
+
+<div class="result" id="result">
+  I knew it 😘💖
+</div>
+
+<script>
+function showLove(){
+  document.querySelector(".container").style.display="none";
+  document.getElementById("result").style.display="block";
+}
+
+/* Tombol No kabur */
+let noBtn = document.getElementById("noBtn");
+
+function moveButton(){
+  let x = Math.random() * (window.innerWidth - 100);
+  let y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("touchstart", moveButton);
+noBtn.addEventListener("mouseover", moveButton);
+
+/* Heart jatuh */
+setInterval(()=>{
+  let heart = document.createElement("div");
+  heart.innerHTML="❤️";
+  heart.className="heart";
+  heart.style.left=Math.random()*100+"%";
+  heart.style.fontSize=(20+Math.random()*30)+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),6000);
+},400);
+
+/* Sticker random jatuh */
+let stickers = ["💖","🌸","🧸","💘","💝","💕"];
+
+setInterval(()=>{
+  let sticker = document.createElement("div");
+  sticker.innerHTML = stickers[Math.floor(Math.random()*stickers.length)];
+  sticker.className="sticker";
+  sticker.style.left=Math.random()*100+"%";
+  sticker.style.fontSize=(30+Math.random()*40)+"px";
+  document.body.appendChild(sticker);
+  setTimeout(()=>sticker.remove(),6000);
+},800);
+
+</script>
+
+</body>
+  </html>
